@@ -18,6 +18,12 @@ info.onLifeZero(function () {
     game.setGameOverPlayable(false, music.melodyPlayable(music.wawawawaa), false)
     game.gameOver(false)
 })
+sprites.onOverlap(SpriteKind.Player, SpriteKind.Food, function (sprite, otherSprite) {
+    info.changeCountdownBy(2)
+    info.changeScoreBy(1)
+    sprites.destroy(star)
+    music.play(music.melodyPlayable(music.powerUp), music.PlaybackMode.UntilDone)
+})
 sprites.onOverlap(SpriteKind.Player, SpriteKind.Enemy, function (sprite, otherSprite) {
     if (car.overlapsWith(incoming_car)) {
         sprites.destroy(incoming_car, effects.fire, 200)
@@ -33,6 +39,7 @@ sprites.onOverlap(SpriteKind.Player, SpriteKind.Enemy, function (sprite, otherSp
     music.play(music.melodyPlayable(music.powerDown), music.PlaybackMode.UntilDone)
     info.changeLifeBy(-1)
 })
+let star: Sprite = null
 let incoming_car: Sprite = null
 let car_behind: Sprite = null
 let car: Sprite = null
@@ -177,7 +184,115 @@ let duck = sprites.create(img`
     . . . . c c d d d 5 5 5 b b . . 
     . . . . . . c c c c c b b . . . 
     `, SpriteKind.narrator)
-duck.sayText("My name is Kenald the Duck. Welcome to my game!")
+duck.sayText("My name is Kenald the Duck. I am late for school!")
+animation.runImageAnimation(
+duck,
+[img`
+    . . . . . . . . . . . . . . . . 
+    . . . . . . . . . . . . . . . . 
+    . . . . . . . . . b 5 5 b . . . 
+    . . . . . . b b b b b b . . . . 
+    . . . . . b b 5 5 5 5 5 b . . . 
+    . b b b b b 5 5 5 5 5 5 5 b . . 
+    . b d 5 b 5 5 5 5 5 5 5 5 b . . 
+    . . b 5 5 b 5 d 1 f 5 d 4 f . . 
+    . . b d 5 5 b 1 f f 5 4 4 c . . 
+    b b d b 5 5 5 d f b 4 4 4 4 b . 
+    b d d c d 5 5 b 5 4 4 4 4 4 4 b 
+    c d d d c c b 5 5 5 5 5 5 5 b . 
+    c b d d d d d 5 5 5 5 5 5 5 b . 
+    . c d d d d d d 5 5 5 5 5 d b . 
+    . . c b d d d d d 5 5 5 b b . . 
+    . . . c c c c c c c c b b . . . 
+    `,img`
+    . . . . . . . . . . . . . . . . 
+    . . . . . . . . . . b 5 b . . . 
+    . . . . . . . . . b 5 b . . . . 
+    . . . . . . b b b b b b . . . . 
+    . . . . . b b 5 5 5 5 5 b . . . 
+    . b b b b b 5 5 5 5 5 5 5 b . . 
+    . b d 5 b 5 5 5 5 5 5 5 5 b . . 
+    . . b 5 5 b 5 d 1 f 5 d 4 f . . 
+    . . b d 5 5 b 1 f f 5 4 4 c . . 
+    b b d b 5 5 5 d f b 4 4 4 4 4 b 
+    b d d c d 5 5 b 5 4 4 4 4 4 b . 
+    c d d d c c b 5 5 5 5 5 5 5 b . 
+    c b d d d d d 5 5 5 5 5 5 5 b . 
+    . c d d d d d d 5 5 5 5 5 d b . 
+    . . c b d d d d d 5 5 5 b b . . 
+    . . . c c c c c c c c b b . . . 
+    `,img`
+    . . . . . . . . . . b 5 b . . . 
+    . . . . . . . . . b 5 b . . . . 
+    . . . . . . . . . b c . . . . . 
+    . . . . . . b b b b b b . . . . 
+    . . . . . b b 5 5 5 5 5 b . . . 
+    . . . . b b 5 d 1 f 5 5 d f . . 
+    . . . . b 5 5 1 f f 5 d 4 c . . 
+    . . . . b 5 5 d f b d d 4 4 . . 
+    b d d d b b d 5 5 5 4 4 4 4 4 b 
+    b b d 5 5 5 b 5 5 4 4 4 4 4 b . 
+    b d c 5 5 5 5 d 5 5 5 5 5 b . . 
+    c d d c d 5 5 b 5 5 5 5 5 5 b . 
+    c b d d c c b 5 5 5 5 5 5 5 b . 
+    . c d d d d d d 5 5 5 5 5 d b . 
+    . . c b d d d d d 5 5 5 b b . . 
+    . . . c c c c c c c c b b . . . 
+    `,img`
+    . . . . . . . . . . b 5 b . . . 
+    . . . . . . . . . b 5 b . . . . 
+    . . . . . . b b b b b b . . . . 
+    . . . . . b b 5 5 5 5 5 b . . . 
+    . . . . b b 5 d 1 f 5 d 4 c . . 
+    . . . . b 5 5 1 f f d d 4 4 4 b 
+    . . . . b 5 5 d f b 4 4 4 4 b . 
+    . . . b d 5 5 5 5 4 4 4 4 b . . 
+    . . b d d 5 5 5 5 5 5 5 5 b . . 
+    . b d d d d 5 5 5 5 5 5 5 5 b . 
+    b d d d b b b 5 5 5 5 5 5 5 b . 
+    c d d b 5 5 d c 5 5 5 5 5 5 b . 
+    c b b d 5 d c d 5 5 5 5 5 5 b . 
+    . b 5 5 b c d d 5 5 5 5 5 d b . 
+    b b c c c d d d d 5 5 5 b b . . 
+    . . . c c c c c c c c b b . . . 
+    `,img`
+    . . . . . . . . . . b 5 b . . . 
+    . . . . . . . . . b 5 b . . . . 
+    . . . . . . b b b b b b . . . . 
+    . . . . . b b 5 5 5 5 5 b . . . 
+    . . . . b b 5 d 1 f 5 d 4 c . . 
+    . . . . b 5 5 1 f f d d 4 4 4 b 
+    . . . . b 5 5 d f b 4 4 4 4 b . 
+    . . . b d 5 5 5 5 4 4 4 4 b . . 
+    . b b d d d 5 5 5 5 5 5 5 b . . 
+    b d d d b b b 5 5 5 5 5 5 5 b . 
+    c d d b 5 5 d c 5 5 5 5 5 5 b . 
+    c b b d 5 d c d 5 5 5 5 5 5 b . 
+    c b 5 5 b c d d 5 5 5 5 5 5 b . 
+    b b c c c d d d 5 5 5 5 5 d b . 
+    . . . . c c d d d 5 5 5 b b . . 
+    . . . . . . c c c c c b b . . . 
+    `,img`
+    . . . . . . . . . . b 5 b . . . 
+    . . . . . . . . . b 5 b . . . . 
+    . . . . . . b b b b b b . . . . 
+    . . . . . b b 5 5 5 5 5 b . . . 
+    . . . . b b 5 d 1 f 5 5 d f . . 
+    . . . . b 5 5 1 f f 5 d 4 c . . 
+    . . . . b 5 5 d f b d d 4 4 . . 
+    . b b b d 5 5 5 5 5 4 4 4 4 4 b 
+    b d d d b b d 5 5 4 4 4 4 4 b . 
+    b b d 5 5 5 b 5 5 5 5 5 5 b . . 
+    c d c 5 5 5 5 d 5 5 5 5 5 5 b . 
+    c b d c d 5 5 b 5 5 5 5 5 5 b . 
+    . c d d c c b d 5 5 5 5 5 d b . 
+    . . c b d d d d d 5 5 5 b b . . 
+    . . . c c c c c c c c b b . . . 
+    . . . . . . . . . . . . . . . . 
+    `],
+100,
+true
+)
 game.setDialogFrame(img`
     ..bbbbbbbbbbbbbbbbbbbb..
     .bd111111111111111111db.
@@ -205,7 +320,9 @@ game.setDialogFrame(img`
     ..bbbbbbbbbbbbbbbbbbbb..
     `)
 game.setDialogTextColor(2)
-game.showLongText("Press A to start race!", DialogLayout.Bottom)
+game.showLongText("Press A to start!", DialogLayout.Bottom)
+duck.setVelocity(50, 0)
+pause(1200)
 sprites.destroy(duck)
 scene.setBackgroundImage(img`
     9999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999
@@ -347,8 +464,10 @@ car = sprites.create(img`
     . . . f f f . . . . f f f f . . 
     . . . . . . . . . . . . . . . . 
     `, SpriteKind.Player)
-pause(1000)
+pause(500)
 music.stopAllSounds()
+info.setScore(0)
+info.setLife(3)
 game.showLongText("Ready..Go!", DialogLayout.Bottom)
 info.startCountdown(15)
 car.setStayInScreen(true)
@@ -524,7 +643,70 @@ forever(function () {
     100,
     true
     )
-    pause(2100)
+    pause(randint(500, 2100))
+})
+forever(function () {
+    star = sprites.createProjectileFromSide(img`
+        . . . . . . . . . . . . . . . . 
+        . . . . . . . . b . . . . . . . 
+        . . . . . . . b d b . . . . . . 
+        . . . . . . b 5 5 5 b . . . . . 
+        . . . . . b b 5 5 5 b b . . . . 
+        . . b b b b 5 5 5 1 1 b b b b . 
+        . . b 5 5 5 5 5 5 1 1 5 5 5 b . 
+        . . b d d 5 5 5 5 5 5 5 d d b . 
+        . . . b d d 5 5 5 5 5 d d b . . 
+        . . . c b 5 5 5 5 5 5 5 b c . . 
+        . . . c b 5 5 5 5 5 5 5 b c . . 
+        . . . c 5 5 d d b d d 5 5 c . . 
+        . . . c 5 d d c c c d d 5 c . . 
+        . . . c c c c . . . c c c c . . 
+        . . . . . . . . . . . . . . . . 
+        . . . . . . . . . . . . . . . . 
+        `, -90, 0)
+    star.y = randint(15, 115)
+    star.setKind(SpriteKind.Food)
+    animation.runImageAnimation(
+    star,
+    [img`
+        . . . . . . . . . . . . . . . . 
+        . . . . . . . . b . . . . . . . 
+        . . . . . . . b d b . . . . . . 
+        . . . . . . b 5 5 5 b . . . . . 
+        . . . . . b b 5 5 5 b b . . . . 
+        . . b b b b 5 5 5 1 1 b b b b . 
+        . . b 5 5 5 5 5 5 1 1 5 5 5 b . 
+        . . b d d 5 5 5 5 5 5 5 d d b . 
+        . . . b d d 5 5 5 5 5 d d b . . 
+        . . . c b 5 5 5 5 5 5 5 b c . . 
+        . . . c b 5 5 5 5 5 5 5 b c . . 
+        . . . c 5 5 d d b d d 5 5 c . . 
+        . . . c 5 d d c c c d d 5 c . . 
+        . . . c c c c . . . c c c c . . 
+        . . . . . . . . . . . . . . . . 
+        . . . . . . . . . . . . . . . . 
+        `,img`
+        . . . . . . . b b . . . . . . . 
+        . . . . . . b d d b . . . . . . 
+        . . . . . b d 5 5 d b . . . . . 
+        . . . . b b 5 5 5 5 b b . . . . 
+        . . . . b 5 5 5 5 5 5 b . . . . 
+        b b b b b 5 5 5 5 1 1 d b b b b 
+        b 5 5 5 5 5 5 5 5 1 1 1 5 5 5 b 
+        b d d 5 5 5 5 5 5 1 1 1 5 d d b 
+        . b d d 5 5 5 5 5 5 5 5 d d b . 
+        . . b b 5 5 5 5 5 5 5 5 b b . . 
+        . . c b 5 5 5 5 5 5 5 5 b c . . 
+        . . c 5 5 5 5 d d 5 5 5 5 c . . 
+        . . c 5 5 d b b b b d 5 5 c . . 
+        . . c 5 d b c c c c b d 5 c . . 
+        . . c c c c . . . . c c c c . . 
+        . . . . . . . . . . . . . . . . 
+        `],
+    500,
+    true
+    )
+    pause(randint(1500, 2500))
 })
 forever(function () {
     car_behind = sprites.createProjectileFromSide(img`
@@ -621,5 +803,5 @@ forever(function () {
     100,
     true
     )
-    pause(2100)
+    pause(randint(500, 2100))
 })
