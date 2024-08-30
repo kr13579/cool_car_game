@@ -322,7 +322,7 @@ game.setDialogFrame(img`
 game.setDialogTextColor(2)
 game.showLongText("Press A to start!", DialogLayout.Bottom)
 duck.setVelocity(50, 0)
-pause(1200)
+pause(1500)
 sprites.destroy(duck)
 scene.setBackgroundImage(img`
     9999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999
@@ -464,7 +464,7 @@ car = sprites.create(img`
     . . . f f f . . . . f f f f . . 
     . . . . . . . . . . . . . . . . 
     `, SpriteKind.Player)
-pause(500)
+pause(600)
 music.stopAllSounds()
 info.setScore(0)
 info.setLife(3)
