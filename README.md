@@ -1,7 +1,7 @@
  
 
 
-> Open this page at [https://kr13579.github.io/cool_car_game/](https://kr13579.github.io/cool_car_game/)
+> Open this game at [https://arcade.makecode.com/S67391-28362-84503-35941](https://arcade.makecode.com/S67391-28362-84503-35941)
 
 ## Use as Extension
 
